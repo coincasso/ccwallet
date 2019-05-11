@@ -2,14 +2,16 @@ import React, { Component } from 'react'
 import {
   StyleSheet,
   TouchableOpacity,
+      Image,
   Text
 } from 'react-native'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react/native'
 import AppStyle from '../../../commons/AppStyle'
+import images from '../../../commons/images'
 
 @observer
-export default class HomeDAppButton extends Component {
+export default class HomeLogo extends Component {
   static propTypes = {
     onPress: PropTypes.func
   }
@@ -19,20 +21,27 @@ export default class HomeDAppButton extends Component {
   }
 
   render() {
-    const { onPress } = this.props
+    
     return (
-      <TouchableOpacity
-        style={styles.browserButton}
-        onPress={onPress}
-      >
-        <Text style={{ color: AppStyle.mainColor, fontFamily: 'OpenSans-Semibold' }}>DApps Browser</Text>
-      </TouchableOpacity>
+      <Image
+          source={images.loadingLogo}
+          style={styles.image}
+       
+        />
+   
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  image: {
+      height: 95,
+      width: 100,
+        marginRight: 20,
+      paddingLeft: 20,
+      paddingRight: 20
+  },
+    container: {
 
   },
   browserButton: {

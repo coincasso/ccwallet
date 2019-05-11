@@ -1,5 +1,5 @@
 import axios from 'axios'
-import qs from 'querystring'
+import qs from 'query-string'
 
 const METHOD_GET = 'get'
 const METHOD_POST = 'post'

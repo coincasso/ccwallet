@@ -1,10 +1,10 @@
 export default {
-  mainColor: '#E4BF43',
+  mainColor: '#009fe3', //edited
   grayColor: '#C5C1C1',
   greenColor: '#2ED573',
   colorBlack: '#0F140D',
   placeholderColor: '#6A6A77',
-  backgroundColor: '#0A0F24',
+  backgroundColor: '#00093e', //edited coincasso
   secondaryColor: '#4B53FF',
   colorRed: '#FF1B43',
   backgroundCard: '#0F142E',
@@ -30,7 +30,7 @@ export default {
   colorImageOvalBottom: '#eaf4fb',
   colorPinCode: '#131D42',
   warmGreyColor: '#9b9b9b',
-  mode1: '#13192B',
+  mode1: '#001758', //edited
   mode2: '#22273A',
   mode3: '#2E3244',
   modeAdd: '#161B2F',
@@ -39,10 +39,10 @@ export default {
   colorDown: '#E50370',
   colorUp: '#7ED321',
   colorLines: '#1D2137',
-  backgroundTextInput: '#141A2E',
+  backgroundTextInput: '#06064e', //edited
 
-  backgroundDarkMode: '#0A0F24',
-  backgroundContentDarkMode: '#14192D',
+  backgroundDarkMode: '#0a1452', 
+  backgroundContentDarkMode: '#000f4b',
   titleDarkModeColor: '#E5E5E5',
   subtitleDarkModeColor: '#8A8D97',
   backgroundDarkBlue: '#121734',

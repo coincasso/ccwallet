@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   container: {
     width: cardWidth,
     height: cardHeight,
-    borderRadius: 14,
+    borderRadius: 0,
     alignItems: 'center',
     shadowColor: 'black',
     shadowOpacity: 0.3,

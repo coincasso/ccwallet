@@ -38,11 +38,13 @@ export default class HomeSendButton extends Component {
 
 const styles = StyleSheet.create({
   btnSend: {
-    width: 70,
+    width: 290,
     height: 70,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: AppStyle.backgroundDarkBlue,
-    borderRadius: 35
+    backgroundColor: AppStyle.backgroundColor,
+      borderWidth: 1,
+      borderColor: AppStyle.backgroundWhite,
+    borderRadius: 20
   }
 })

@@ -44,26 +44,42 @@ export default class CreateWalletScreen extends Component {
         />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <SmallCard
+            style={{width: width-40, borderRadius: 0, backgroundColor:AppStyle.backgroundDarkMode}}
             title="Create"
             subtitle="a new wallet"
             imageCard={images.imgCardCreate}
             onPress={this.gotoEnterName}
-            imageBackground="backgroundCard"
+            imgBackgroundStyle={{ height: 214, borderRadius: 0, width: width - 40 }}
             titleTextStyle={{ color: AppStyle.mainColor }}
             subtitleTextStyle={{ color: AppStyle.secondaryTextColor, marginTop: 4, fontSize: 16 }}
           />
+        
+           
 
           <SmallCard
-            style={{ marginTop: 40 }}
+            style={{ marginTop: 20, height:100, width: width-40, borderRadius: 0, backgroundColor:AppStyle.backgroundDarkMode}}
             title="Import"
             subtitle="existing wallet"
-            imageCard={images.imgCardImport}
+            imageCard={images.iconShare}
+            onPress={this.gotoImport}
+            imgBackground="backgroundCard"
+            imgBackgroundStyle={{ height: 214, borderRadius: 0, width: width - 40, marginLeftOfItem:100 }}
+            titleTextStyle={{ color: AppStyle.mainTextColor }}
+            subtitleTextStyle={{ color: AppStyle.secondaryTextColor, marginTop: 4, fontSize: 16 }}
+          />
+        
+            <SmallCard
+            style={{ marginTop: 20, height:100, width: width-40, borderRadius: 20, backgroundColor:AppStyle.backgroundColor,  borderWidth: 1, borderColor:AppStyle.mainColor }}
+            title="Get free CCX"
+            subtitle="Only 5000 CCX to win"
+            imageCard={images.icon_addBold}
             onPress={this.gotoImport}
             imgBackground="backgroundCard"
             imgBackgroundStyle={{ height: 214, borderRadius: 14, width: width - 40 }}
             titleTextStyle={{ color: AppStyle.mainTextColor }}
             subtitleTextStyle={{ color: AppStyle.secondaryTextColor, marginTop: 4, fontSize: 16 }}
           />
+          
         </View>
       </View>
     )

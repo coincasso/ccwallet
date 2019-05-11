@@ -86,6 +86,8 @@ export default class WalletTypeCreateScreen extends Component {
             titleTextStyle={{ color: AppStyle.mainTextColor }}
             subtitleTextStyle={{ color: AppStyle.secondaryTextColor, marginTop: 4, fontSize: 16 }}
           />
+        
+        
         </View>
       </View>
     )

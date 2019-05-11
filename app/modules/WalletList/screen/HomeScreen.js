@@ -31,7 +31,7 @@ import Router from '../../../AppStores/Router'
 import TickerStore from '../stores/TickerStore'
 import NotificationStore from '../../../AppStores/stores/Notification'
 import AppVersion from '../../../AppStores/stores/AppVersion'
-import HomeDAppButton from '../elements/HomeDAppButton'
+import HomeLogo from '../elements/HomeLogo'
 import MixpanelHandler from '../../../Handler/MixpanelHandler'
 
 const marginTop = LayoutUtils.getExtraTop()
@@ -330,7 +330,7 @@ export default class HomeScreen extends Component {
             <Animated.View
               style={[styles.animHomeHeader, { opacity: changeOpacityListCoin }]}
             >
-              <HomeDAppButton onPress={this._goToDapp} />
+              <HomeLogo  />
             </Animated.View>
           </View>
         </View>
@@ -398,9 +398,9 @@ const styles = StyleSheet.create({
   bottomField: {
     marginTop: -25,
     flex: 1,
-    marginLeft: 36,
+    marginLeft: 20,
     marginRight: 20,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     flexDirection: 'row'
   },
   dot: {
