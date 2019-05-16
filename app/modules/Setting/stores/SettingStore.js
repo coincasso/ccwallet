@@ -17,7 +17,7 @@ export default class SettingStore {
       mainText: 'Telegram Group',
       onPress: () => {
         MainStore.appState.mixpanleHandler.track(MixpanelHandler.eventName.ACTION_JOIN_TELEGRAM)
-        Linking.openURL('https://t.me/goldenwallet')
+        Linking.openURL('https://t.me/coincasso')
       },
       iconRight: false
     },
@@ -25,7 +25,7 @@ export default class SettingStore {
       mainText: 'Follow Twitter',
       onPress: () => {
         MainStore.appState.mixpanleHandler.track(MixpanelHandler.eventName.ACTION_VIEW_TWITTER)
-        Linking.openURL('https://twitter.com/goldenwallet_io')
+        Linking.openURL('https://twitter.com/coincasso')
       },
       iconRight: false
     }
@@ -54,44 +54,44 @@ export default class SettingStore {
     //   onPress: () => { NavStore.pushToScreen('DAppWebScreen') },
     //   iconRight: false
     // },
-    {
-      mainText: `Rate Golden on ${store}`,
-      onPress: () => { this.showPopupRating() },
-      iconRight: false
-    },
-    {
-      mainText: 'Source Code',
-      onPress: () => {
-        MainStore.appState.mixpanleHandler.track(MixpanelHandler.eventName.ACTION_VIEW_SOURCE_CODE)
-        Linking.openURL('https://github.com/goldennetwork/golden-wallet-react-native')
-      },
-      subText: 'Github'
-    },
-    {
-      mainText: 'Privacy & Terms',
-      onPress: () => { NavStore.pushToScreen('PrivacyTermsScreen') }
-    },
-    {
-      mainText: 'App Version',
-      onPress: () => { NavStore.pushToScreen('AppVersionScreen') },
-      subText: DeviceInfo.getVersion()
-    }
+//    {
+//      mainText: `Rate Golden on ${store}`,
+//      onPress: () => { this.showPopupRating() },
+//      iconRight: false
+//    },
+//    {
+//      mainText: 'Source Code',
+//      onPress: () => {
+//        MainStore.appState.mixpanleHandler.track(MixpanelHandler.eventName.ACTION_VIEW_SOURCE_CODE)
+//        Linking.openURL('https://github.com/goldennetwork/golden-wallet-react-native')
+//      },
+//      subText: 'Github'
+//    },
+//    {
+//      mainText: 'Privacy & Terms',
+//      onPress: () => { NavStore.pushToScreen('PrivacyTermsScreen') }
+//    },
+//    {
+//      mainText: 'App Version',
+//      onPress: () => { NavStore.pushToScreen('AppVersionScreen') },
+//      subText: DeviceInfo.getVersion()
+//    }
   ]
 
   @action onSwitchEnableNotification() {
     const { enableSwitch } = this.dataAppSetting[1]
     this.dataAppSetting = [
-      {
-        mainText: 'Network',
-        onPress: () => { },
-        subText: 'Mainnet'
-      },
-      {
-        mainText: 'Enable Notification',
-        onPress: () => { },
-        type: 'switch',
-        enableSwitch: !enableSwitch
-      }
+//      {
+//        mainText: 'Network',
+//        onPress: () => { },
+//        subText: 'Mainnet'
+//      },
+//      {
+//        mainText: 'Enable Notification',
+//        onPress: () => { },
+//        type: 'switch',
+//        enableSwitch: !enableSwitch
+//      }
     ]
   }
 
