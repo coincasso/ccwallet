@@ -13,6 +13,14 @@ const PLAY_STORE_LINK = 'market://details?id=io.goldenwallet'
 
 export default class SettingStore {
   @observable dataCommunity = [
+  {
+      mainText: 'CoinCasso Exchange',
+      onPress: () => {
+        MainStore.appState.mixpanleHandler.track(MixpanelHandler.eventName.ACTION_VIEW_SOURCE_CODE)
+        Linking.openURL('https://coincasso.com')
+      },
+      subText: 'Github'
+    },
     {
       mainText: 'Telegram Group',
       onPress: () => {
@@ -28,7 +36,8 @@ export default class SettingStore {
         Linking.openURL('https://twitter.com/coincasso')
       },
       iconRight: false
-    }
+    },
+  
     // {
     //   mainText: 'Medium',
     //   onPress: () => { },
@@ -79,7 +88,7 @@ export default class SettingStore {
   ]
 
   @action onSwitchEnableNotification() {
-    const { enableSwitch } = this.dataAppSetting[1]
+  //  const { enableSwitch } = this.dataAppSetting[1]
     this.dataAppSetting = [
 //      {
 //        mainText: 'Network',

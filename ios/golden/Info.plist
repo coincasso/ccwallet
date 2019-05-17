@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>100</string>
+	<string>103</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -66,12 +66,12 @@
 	<string>We need permission to scan QR code</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enabling Face ID allows you quick and secure access to your account.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME) needs Location access for Language Seettings!</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We need your location data to tracking</string>
+	<string>$(PRODUCT_NAME) needs Location access for Language Seettings!</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
-	<key>NSLocationWhenInUseUsageDescription </key>
-	<string>We need your location data to tracking</string>
+	<string>$(PRODUCT_NAME) needs Location access for Language Seettings!</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We would like to your microphone (for videos)</string>
 	<key>NSMotionUsageDescription</key>

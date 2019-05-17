@@ -12,6 +12,7 @@ import constant from '../../../commons/constant'
 import images from '../../../commons/images'
 import AppStyle from '../../../commons/AppStyle'
 import NavStore from '../../../AppStores/NavStore'
+import { chainNames } from '../../../Utils/WalletAddresses'
 
 const marginTop = LayoutUtils.getExtraTop()
 const { width } = Dimensions.get('window')
@@ -28,6 +29,12 @@ export default class CreateWalletScreen extends Component {
 
   gotoImport = () => {
     NavStore.pushToScreen('WalletTypeImportScreen')
+  }
+  gotoCCX = () => {
+  
+    NavStore.pushToScreen('EnterNameScreen', {
+      coin: chainNames.ETH
+    })
   }
 
   render() {
@@ -54,7 +61,6 @@ export default class CreateWalletScreen extends Component {
             subtitleTextStyle={{ color: AppStyle.secondaryTextColor, marginTop: 4, fontSize: 16 }}
           />
         
-           
 
           <SmallCard
             style={{ marginTop: 20, height:100, width: width-40, borderRadius: 0, backgroundColor:AppStyle.backgroundDarkMode}}
@@ -73,7 +79,7 @@ export default class CreateWalletScreen extends Component {
             title="Get free CCX"
             subtitle="Only 5000 CCX to win"
             imageCard={images.icon_addBold}
-            onPress={this.gotoImport}
+            onPress={this.gotoCCX}
             imgBackground="backgroundCard"
             imgBackgroundStyle={{ height: 214, borderRadius: 14, width: width - 40 }}
             titleTextStyle={{ color: AppStyle.mainTextColor }}

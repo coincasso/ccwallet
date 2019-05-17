@@ -44,7 +44,7 @@ export default class TokenHeader extends Component {
             fontFamily: Platform.OS === 'ios' ? 'OpenSans' : 'OpenSans-Regular'
           }}
           mainSubTitleStyle={{
-            color: '#E4BF43',
+            color: '#437be4',
             fontSize: 30,
             fontFamily: AppStyle.mainFontBold
           }}

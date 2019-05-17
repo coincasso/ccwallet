@@ -18,7 +18,7 @@ import MainStore from '../../../AppStores/MainStore'
 
 const marginTop = LayoutUtils.getExtraTop()
 const mainText = 'Write down your Recovery Phrase in the order and keep it in a secure place.'
-const subText = 'Do not share with anyone including Golden support.'
+const subText = 'Do not share with anyone including CoinCasso support.'
 
 @observer
 export default class BackupSecondStepScreen extends Component {

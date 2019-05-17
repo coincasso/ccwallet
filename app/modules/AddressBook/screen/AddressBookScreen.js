@@ -180,7 +180,7 @@ export default class AddressBookScreen extends Component {
           }}
         />
         <Text
-          style={styles.textOfButtonStyle}
+          style={styles.mainColor}
         >Add New Address
         </Text>
       </TouchableOpacity>

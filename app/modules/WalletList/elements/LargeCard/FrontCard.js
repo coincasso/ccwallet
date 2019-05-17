@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     maxWidth: cardWidth - 145
   },
   backupField: {
-    backgroundColor: '#D0021B',
+    backgroundColor: '#c46a00',
     paddingHorizontal: isSmallScreen ? 14 : 20,
     height: isSmallScreen ? 20 : 30,
     borderRadius: isSmallScreen ? 10 : 15,

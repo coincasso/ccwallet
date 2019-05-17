@@ -47,8 +47,10 @@ export default class NewUpdatedAvailableScreen extends Component {
 
   openStore = () => {
     Linking.openURL(Platform.OS === 'ios'
-      ? 'https://itunes.apple.com/us/app/golden-best-wallet-ever/id1399824799?mt=8'
-      : 'https://play.google.com/store/apps/details?id=io.goldenwallet')
+      //? 'https://itunes.apple.com/us/app/golden-best-wallet-ever/id1399824799?mt=8'
+     // : 'https://play.google.com/store/apps/details?id=io.goldenwallet')
+        ? 'https://coincasso.io'
+     : 'https://coincasso.io')
   }
 
   _renderSendBtn() {

@@ -37,7 +37,7 @@ export default class AppSetting extends Component {
         <SettingItem
           style={{ borderTopWidth: 0 }}
           mainText="Network"
-          onPress={onNetworkPress}
+         // onPress={onNetworkPress}
           subText={network}
         />
         <SettingItem

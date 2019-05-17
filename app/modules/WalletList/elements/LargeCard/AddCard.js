@@ -8,6 +8,7 @@ import {
   Dimensions
 } from 'react-native'
 import PropTypes from 'prop-types'
+
 import AppStyle from '../../../../commons/AppStyle'
 import images from '../../../../commons/images'
 import LayoutUtils from '../../../../commons/LayoutUtils'
@@ -25,13 +26,16 @@ export default class AddCard extends Component {
   static defaultProps = {
     onPress: () => { }
   }
+  
+
+  
 
   render() {
     const { onPress } = this.props
     return (
       <TouchableWithoutFeedback
-        style={[styles.container]}
-        onPress={onPress}
+        style={onPress}
+        onPress={this.gotoNewWallet}
       >
         <View style={[styles.container, { marginTop: 20, margin: 5 }]}>
           <Image

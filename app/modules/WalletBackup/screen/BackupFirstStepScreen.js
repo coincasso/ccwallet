@@ -18,7 +18,7 @@ const marginTop = LayoutUtils.getExtraTop()
 const isSmallScreen = LayoutUtils.isSmallScreen()
 const content = [
   'The Recovery Phrase will allow you to recover your wallet in case of the phone loss.',
-  'Golden cannot restore it once lost, so please keep it safe.',
+  'CCWallet cannot restore it once lost, so please keep it safe.',
   'Anyone with your Recovery Phrase can restore and controls all your assets.'
 ]
 

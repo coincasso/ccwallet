@@ -74,11 +74,11 @@ export default class TokenScreen extends Component {
             button: images.backButton
           }}
           action={this.onBack}
-          rightView={{
-            rightViewIcon: images.iconCollectibles,
-            rightViewAction: this.onPressCollectibles,
-            rightViewTitle: 'Collectibles'
-          }}
+          //rightView={{
+          //  rightViewIcon: images.iconCollectibles,
+         //   rightViewAction: this.onPressCollectibles,
+          //  rightViewTitle: 'Collectibles'
+          //}}
         />
         <FlatList
           style={{ flex: 1 }}
