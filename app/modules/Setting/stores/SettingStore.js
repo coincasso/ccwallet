@@ -88,7 +88,7 @@ export default class SettingStore {
   ]
 
   @action onSwitchEnableNotification() {
-  //  const { enableSwitch } = this.dataAppSetting[1]
+    const { enableSwitch } = this.dataAppSetting[1]
     this.dataAppSetting = [
 //      {
 //        mainText: 'Network',
