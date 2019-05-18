@@ -31,5 +31,11 @@ export default {
   BlockChainInfo: {
     apiURL: () => `https://blockchain.info`,
     webURL: () => `https://www.blockchain.com`
+  },
+  TokenBalance: {
+    apiURL: () => 'https://api.tokenbalance.com'
+  },
+  CoinCasso: {
+    tokenInfoAPI: () => 'https://coincasso.io/xapi/token'
   }
 }

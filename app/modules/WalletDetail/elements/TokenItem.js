@@ -52,7 +52,7 @@ export default class TokenItem extends Component {
 
     const { isHideValue } = this.wallet
 
-    return (
+    if(this.wallet.type === 'ethereum') { return (
       <TouchableOpacity onPress={onPress}>
         <View style={[styles.container, style]}>
           <View style={[styles.viewUp, styleUp]}>
@@ -93,8 +93,86 @@ export default class TokenItem extends Component {
             </View>
           </View>
         </View>
+        <View style={[styles.container, style]}>
+          <View style={[styles.viewUp, styleUp]}>
+            <ImageIcon indexToken={indexToken} />
+            <View style={[styles.viewTitle]}>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={styles.title}
+              >
+                CCX
+              </Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={[styles.subTitle]}
+              >
+                CoinCasso Token
+              </Text>
+            </View>
+            <View style={styles.viewEther}>
+              <FadeText
+                text={`${this.wallet.ccxCount}`}
+                isShow={isHideValue}
+                textStyle={[
+                  styles.numberEther
+                ]}
+                style={{ right: 0, alignItems: 'flex-end' }}
+              />
+              <FadeText
+                text={`$${Helper.formatUSD(this.wallet.ccxCount * MainStore.ccxPrice)}`}
+                isShow={isHideValue}
+                textStyle={[
+                  styles.dollaEther
+                ]}
+                style={{ right: 0, alignItems: 'flex-end' }}
+              />
+            </View>
+          </View>
+        </View>
       </TouchableOpacity>
-    )
+    ) } else { return (
+      <View style={[styles.container, style]}>
+              <View style={[styles.viewUp, styleUp]}>
+                <ImageIcon indexToken={indexToken} />
+                <View style={[styles.viewTitle]}>
+                  <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    style={styles.title}
+                  >
+                    {symbol}
+                  </Text>
+                  <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    style={[styles.subTitle]}
+                  >
+                    {title}
+                  </Text>
+                </View>
+                <View style={styles.viewEther}>
+                  <FadeText
+                    text={`${Helper.formatETH(balanceToken)}`}
+                    isShow={isHideValue}
+                    textStyle={[
+                      styles.numberEther
+                    ]}
+                    style={{ right: 0, alignItems: 'flex-end' }}
+                  />
+                  <FadeText
+                    text={`$${Helper.formatUSD(balanceInDollar.toString(10))}`}
+                    isShow={isHideValue}
+                    textStyle={[
+                      styles.dollaEther
+                    ]}
+                    style={{ right: 0, alignItems: 'flex-end' }}
+                  />
+                </View>
+              </View>
+            </View>) }
   }
 }
 

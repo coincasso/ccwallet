@@ -1,3 +1,6 @@
+import {getCCXTokenInfo, getCCXSaleInfo} from '../../api/Token';
+import MainStore from '../MainStore'
+
 export default class CheckBalanceJob {
   appState = null
   jobId = null
@@ -11,12 +14,19 @@ export default class CheckBalanceJob {
 
   fetchWalletsBalance(isRefeshing, isBg) {
     if (this.appState.internetConnection === 'online') {
+      getCCXSaleInfo().then((ccxdata) => { MainStore.ccxPrice = ccxdata.data.last_price; }).catch(() => {});
       this.appState.wallets.forEach((w) => {
         if (this.ignoreSelectedWallet && w.address === this.appState.selectedWallet.address) {
           return
         }
         w.fetchingBalance(isRefeshing, isBg)
+        if(w.type === 'ethereum')
+        {
+          getCCXTokenInfo(w.address).then((ccxData) => { w.ccxCount = parseInt(ccxData.data.balance); });
+        }
       })
+
+
     }
   }
 

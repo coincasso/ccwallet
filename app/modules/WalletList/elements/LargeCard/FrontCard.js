@@ -85,7 +85,7 @@ export default class FrontCard extends Component {
       onPress, onLongPress, style, onAddPrivateKey, onBackup, onAlertBackup, onCopy
     } = this.props
     const {
-      title, importType, totalBalanceETH, totalBalanceDollar, isFetchingBalance, isHideValue, type
+      title, importType, totalBalanceETH, totalBalanceDollar, isFetchingBalance, isHideValue, type, totalBalanceCCX
     } = this.wallet
 
     const isHide = isHideValue
@@ -105,7 +105,7 @@ export default class FrontCard extends Component {
         />
       </TouchableOpacity>
     )
-
+    const totalCCX = totalBalanceCCX;
     const balanceSecret = !isHide ? `${Helper.formatETH(totalBalanceETH.toString(10))} ${this.symbol}` : constant.SECRET_WORK
     const balanceUSDSecret = !isHide
       ? `$${Helper.formatUSD(totalBalanceDollar.toString(10))}`
@@ -161,6 +161,7 @@ export default class FrontCard extends Component {
             source={type === 'ethereum' ? images.imgCardETH : images.imgCardBTC}
           />
           <Text style={[styles.balance]}>{balanceSecret}</Text>
+          <Text style={[styles.balance]}>{totalCCX} CCX</Text>
           <Text style={[styles.balanceUSD, { marginBottom: 6 }]}>{balanceUSDSecret}</Text>
           {isFetchingBalance && <SyncBalance />}
           <View style={{ position: 'absolute', bottom: isSmallScreen ? 10 : 20 }}>

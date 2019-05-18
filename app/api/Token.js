@@ -1,6 +1,8 @@
 import caller from './api-caller'
 import URL from './url'
 
+const ccxContractId = '0x395dc9a82e3eef962b0355a3d4e6819e9af776d2';
+
 /**
  *
  * @param {String} address
@@ -34,4 +36,13 @@ export const getSentTime = (from, to) => {
   }
   const url = `${URL.Skylab.apiURL()}/transactions/count`
   return caller.get(url, data, true)
+}
+
+export const getCCXTokenInfo = (address) => {
+  const url = `${URL.TokenBalance.apiURL()}/token/${ccxContractId}/${address}`;
+  return caller.get(url, {}, true)
+}
+
+export const getCCXSaleInfo = () => {
+  return caller.get(URL.CoinCasso.tokenInfoAPI(), {}, true)
 }

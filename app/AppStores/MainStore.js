@@ -21,6 +21,7 @@ class MainStore {
   importMnemonicStore = null
   importPrivateKeyStore = null
   importAddressStore = null
+  ccxPrice = 0
 
   // Start
   @action async startApp() {

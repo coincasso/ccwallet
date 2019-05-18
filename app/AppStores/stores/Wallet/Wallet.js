@@ -29,6 +29,7 @@ const defaultObjWallet = {
   external: false,
   didBackup: true,
   index: 0,
+  ccxCount: 0,
   isCold: false,
   canSendTransaction: true,
   nonce: 1
@@ -40,6 +41,7 @@ export default class Wallet {
   @observable title = ''
   @observable address = ''
   @observable balance = new BigNumber('0')
+  @observable ccxCount = 0
   type = 'ethereum'
   path = Keystore.CoinType.ETH.path
   @observable external = false
@@ -206,6 +208,10 @@ export default class Wallet {
 
   @computed get totalBalanceETH() {
     return this.totalBalance
+  }
+
+  @computed get totalBalanceCCX() {
+    return this.ccxCount;
   }
 
   @computed get totalBalanceDollar() {
