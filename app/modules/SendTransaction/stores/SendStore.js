@@ -116,6 +116,7 @@ class SendStore {
 
         if(MainStore.erc20)
         {
+          transaction.value = new BigNumber(MainStore.erc20TransferAmount.toString());
           return this.sendTokenEx(transaction, ds)
             .then(res => this._onSendSuccess(res))
             .catch(err => this._onSendFail(err))
@@ -252,7 +253,7 @@ class SendStore {
     // })
   }
 
-  sendTokenEx(transaction, ds) {
+  sendToken(transaction, ds) {
     if (!this.confirmStore.validateAmount()) {
       const err = { message: 'Not enough gas to send this transaction' }
       return Promise.reject(err)
