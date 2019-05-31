@@ -68,13 +68,14 @@ export default class TokenItem extends Component {
         for(let i = 0; i < MainStore.walletTokenStore[this.wallet.address].length; i++){
           let imgUrl = MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.image;
           if(typeof imgUrl === 'undefined')
-            imgUrl = 'https://i1.sndcdn.com/artworks-000306764577-lvq5h3-t500x500.jpg';
+            imgUrl = 'https://coincasso.io/Themes/coincasso/assets/images/coin.png';
 
           let price = 'N/A';
 
           if(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.address === '0x395dc9a82e3eef962b0355a3d4e6819e9af776d2') // ccx
           {
             price = '$' + MainStore.ccxPrice * MainStore.walletTokenStore[this.wallet.address][i].balance / Math.pow(10, parseInt(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.decimals));
+            imgUrl = 'https://coincasso.io/Images/apple-touch-icon.png';
           }
           else if(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.price)
           {
