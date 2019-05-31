@@ -106,7 +106,7 @@ export default class FrontCard extends Component {
       </TouchableOpacity>
     )
     const totalCCX = totalBalanceCCX;
-    const totCCX = this.wallet.type === 'ethereum' ? <Text style={[styles.balance]}>{totalCCX} CCX</Text> : null; 
+    const totCCX = null; 
     const balanceSecret = !isHide ? `${Helper.formatETH(totalBalanceETH.toString(10))} ${this.symbol}` : constant.SECRET_WORK
     const balanceUSDSecret = !isHide
       ? `$${Helper.formatUSD((parseInt(totalBalanceDollar) + (typeof MainStore.walletTokenMapping[this.wallet.address] === 'undefined' || typeof MainStore.walletTokenMapping[this.wallet.address]['0x395dc9a82e3eef962b0355a3d4e6819e9af776d2'] === 'undefined' || this.wallet.type !== 'ethereum' ? 0 : MainStore.ccxPrice * MainStore.walletTokenMapping[this.wallet.address]['0x395dc9a82e3eef962b0355a3d4e6819e9af776d2'].balance / Math.pow(10, 18))).toString(10))}`
