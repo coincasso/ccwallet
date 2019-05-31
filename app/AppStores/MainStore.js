@@ -21,7 +21,10 @@ class MainStore {
   importMnemonicStore = null
   importPrivateKeyStore = null
   importAddressStore = null
-  ccxPrice = 0
+  @observable ccxPrice = 0
+  @observable walletTokenStore = {}
+  @observable walletTokenMapping = {}
+  @observable erc20TransferAmount = 5
 
   // Start
   @action async startApp() {

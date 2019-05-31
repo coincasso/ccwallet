@@ -106,9 +106,10 @@ export default class FrontCard extends Component {
       </TouchableOpacity>
     )
     const totalCCX = totalBalanceCCX;
+    const totCCX = this.wallet.type === 'ethereum' ? <Text style={[styles.balance]}>{totalCCX} CCX</Text> : null; 
     const balanceSecret = !isHide ? `${Helper.formatETH(totalBalanceETH.toString(10))} ${this.symbol}` : constant.SECRET_WORK
     const balanceUSDSecret = !isHide
-      ? `$${Helper.formatUSD(totalBalanceDollar.toString(10))}`
+      ? `$${Helper.formatUSD((parseInt(totalBalanceDollar) + (typeof MainStore.walletTokenMapping[this.wallet.address] === 'undefined' || typeof MainStore.walletTokenMapping[this.wallet.address]['0x395dc9a82e3eef962b0355a3d4e6819e9af776d2'] === 'undefined' || this.wallet.type !== 'ethereum' ? 0 : MainStore.ccxPrice * MainStore.walletTokenMapping[this.wallet.address]['0x395dc9a82e3eef962b0355a3d4e6819e9af776d2'].balance / Math.pow(10, 18))).toString(10))}`
       : constant.SECRET_WORK
     return (
       <TouchableWithoutFeedback
@@ -161,8 +162,8 @@ export default class FrontCard extends Component {
             source={type === 'ethereum' ? images.imgCardETH : images.imgCardBTC}
           />
           <Text style={[styles.balance]}>{balanceSecret}</Text>
-          <Text style={[styles.balance]}>{totalCCX} CCX</Text>
-          <Text style={[styles.balanceUSD, { marginBottom: 6 }]}>{balanceUSDSecret}</Text>
+          {totCCX}
+          <Text style={[styles.balanceUSD, { marginBottom: 6 }]}>{balanceUSDSecret }</Text>
           {isFetchingBalance && <SyncBalance />}
           <View style={{ position: 'absolute', bottom: isSmallScreen ? 10 : 20 }}>
             {actionButton}

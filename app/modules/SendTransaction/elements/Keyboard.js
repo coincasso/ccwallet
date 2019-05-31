@@ -50,19 +50,38 @@ export default class KeyBoard extends Component {
   }
 
   _onMaxPress = () => {
-    this.amountStore.max()
+    if(!MainStore.erc20)
+      this.amountStore.max()
+    else
+      MainStore.erc20TransferAmount = (MainStore.selectedErcToken.balance / Math.pow(10, parseInt(MainStore.selectedErcToken.tokenInfo.decimals)));
   }
   _onKeyPress = debounce((text) => {
     HapticHandler.ImpactLight()
-    this.amountStore.add({ text })
+    if(!MainStore.erc20)
+      this.amountStore.add({ text })
+    else
+      MainStore.erc20TransferAmount = parseInt(MainStore.erc20TransferAmount.toString() + text);
   }, 0)
 
   _onBackPress = debounce(() => {
-    this.amountStore.remove()
+    if(!MainStore.erc20)
+      this.amountStore.remove()
+    else
+    {
+      if(MainStore.erc20TransferAmount.toString().length === 1)
+        MainStore.erc20TransferAmount = 0;
+      else
+        MainStore.erc20TransferAmount = parseInt(MainStore.erc20TransferAmount.toString().slice(0, -1));
+    }
+
   }, 0)
 
   _onLongPress = debounce(() => {
-    this.amountStore.clearAll()
+    if(!MainStore.erc20)
+      this.amountStore.clearAll()
+    else
+      MainStore.erc20TransferAmount = 0;
+
   }, 0)
 
   renderNumber(arrayNumber) {

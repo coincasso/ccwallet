@@ -1,4 +1,4 @@
-import {getCCXTokenInfo, getCCXSaleInfo} from '../../api/Token';
+import {getCCXTokenInfo, getCCXSaleInfo, getERC20List} from '../../api/Token';
 import MainStore from '../MainStore'
 
 export default class CheckBalanceJob {
@@ -22,6 +22,11 @@ export default class CheckBalanceJob {
         w.fetchingBalance(isRefeshing, isBg)
         if(w.type === 'ethereum')
         {
+          getERC20List(w.address).then((response) => { MainStore.walletTokenStore[w.address] = response.data.tokens;
+            if(typeof MainStore.walletTokenMapping[w.address] === 'undefined') MainStore.walletTokenMapping[w.address] = {};
+            for(let i = 0; i < response.data.tokens.length;i++)
+              MainStore.walletTokenMapping[w.address][response.data.tokens[i].tokenInfo.address] = response.data.tokens[i];
+           }).catch(() => {});
           getCCXTokenInfo(w.address).then((ccxData) => { w.ccxCount = parseInt(ccxData.data.balance); });
         }
       })

@@ -113,6 +113,13 @@ class SendStore {
           gasLimit: `0x${this.confirmStore.gasLimit.toString(16)}`,
           gasPrice: `0x${this.confirmStore.gasPrice.toString(16)}`
         }
+
+        if(MainStore.erc20)
+        {
+          return this.sendTokenEx(transaction, ds)
+            .then(res => this._onSendSuccess(res))
+            .catch(err => this._onSendFail(err))
+        }
         if (!this.isToken) {
           return this.sendETH(transaction, ds)
             .then(res => this._onSendSuccess(res))
@@ -245,7 +252,7 @@ class SendStore {
     // })
   }
 
-  sendToken(transaction, ds) {
+  sendTokenEx(transaction, ds) {
     if (!this.confirmStore.validateAmount()) {
       const err = { message: 'Not enough gas to send this transaction' }
       return Promise.reject(err)
@@ -273,6 +280,48 @@ class SendStore {
           return sendTransaction(this.rpcURL, unspentTransaction, this.fromAddress, this.chainId, privateKey)
             .then((tx) => {
               this.addAndUpdateGlobalUnpendTransactionInApp(tx, transaction, this.isToken)
+              this.event(MixpanelHandler.eventName.SEND_SUCCESS, transaction.value, this.confirmStore.fee.toString(), token.symbol)
+              return resolve(tx)
+            }).catch((e) => {
+              this.event(MixpanelHandler.eventName.SEND_FAIL, transaction.value, this.confirmStore.fee.toString(), token.symbol)
+              reject(e)
+            })
+        })
+      } catch (e) {
+        this.event(MixpanelHandler.eventName.SEND_FAIL, transaction.value, this.confirmStore.fee.toString(), token.symbol)
+        return reject(e)
+      }
+    })
+  }
+
+  sendTokenEx(transaction, ds) {
+    if (!this.confirmStore.validateAmount()) {
+      const err = { message: 'Not enough gas to send this transaction' }
+      return Promise.reject(err)
+    }
+    const token = MainStore.selectedErcToken.tokenInfo;
+    const {
+      to,
+      value
+    } = transaction
+    this.event(MixpanelHandler.eventName.ACTION_SEND, transaction.value, this.confirmStore.fee.toString(), token.symbol)
+    return new Promise((resolve, reject) => {
+      try {
+        this.getPrivateKey(ds).then((privateKey) => {
+          const numberOfDecimals = token.decimals
+          const numberOfTokens = `0x${value.times(new BigNumber(`1e+${numberOfDecimals}`)).toString(16)}`
+          const inf = new Interface(abi)
+          const transfer = inf.functions.transfer(to, numberOfTokens)
+          const unspentTransaction = {
+            data: transfer.data,
+            to: token.address,
+            gasLimit: transaction.gasLimit,
+            gasPrice: transaction.gasPrice
+          }
+
+          return sendTransaction(this.rpcURL, unspentTransaction, this.fromAddress, this.chainId, privateKey)
+            .then((tx) => {
+            //  this.addAndUpdateGlobalUnpendTransactionInApp(tx, transaction, this.isToken)
               this.event(MixpanelHandler.eventName.SEND_SUCCESS, transaction.value, this.confirmStore.fee.toString(), token.symbol)
               return resolve(tx)
             }).catch((e) => {

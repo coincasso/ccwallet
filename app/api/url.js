@@ -37,5 +37,8 @@ export default {
   },
   CoinCasso: {
     tokenInfoAPI: () => 'https://coincasso.io/xapi/token'
+  },
+  Ethplorer: {
+    apiURL: () => 'https://api.ethplorer.io'
   }
 }

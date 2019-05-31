@@ -197,12 +197,12 @@ export default class ConfirmScreen extends Component {
           <Text
             style={styles.amount}
           >
-            {ethAmount}
+            {MainStore.erc20 ? MainStore.erc20TransferAmount + ' ' + MainStore.selectedErcToken.tokenInfo.symbol : ethAmount}
           </Text>
           <Text
             style={styles.usdAmount}
           >
-            {usdAmount}
+            {MainStore.erc20 ? null : usdAmount}
           </Text>
         </View>
         <View>

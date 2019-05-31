@@ -313,7 +313,7 @@ export default class AdressInputScreen extends Component {
                 }
               ]}
             >
-              {this.renderHeader(amountStore.amountHeaderAddressInputScreen)}
+              {MainStore.erc20 ? this.renderHeader(MainStore.erc20TransferAmount + ' ' + MainStore.selectedErcToken.tokenInfo.symbol) : this.renderHeader(amountStore.amountHeaderAddressInputScreen)}
               <View
                 style={{
                   marginTop: 50

@@ -42,7 +42,7 @@ export default class AnimationInput extends Component {
     const prefixTitle = isUSD
       ? <Text style={style}>$</Text>
       : null
-    const postfixTitle = !isUSD
+    const postfixTitle = (MainStore.erc20 || !isUSD)
       ? <Text style={[{ marginLeft: 15 }, style]}>{this.props.postfix}</Text>
       : null
     const warningTitle = this.amountStore.checkWarningTitle
@@ -51,9 +51,24 @@ export default class AnimationInput extends Component {
     const warningFee = this.amountStore.checkMaxBalanceWithFee
       ? <Text style={styles.waringFeeStyle}>{string}</Text>
       : null
-    const textInit = data.length == 0
+    const textInit = (!MainStore.erc20 && data.length == 0)
       ? <Text style={styles.textInit}>{isUSD ? '0' : '0.0'}</Text>
       : null
+    const warningInsufficiet = (MainStore.erc20 && MainStore.erc20TransferAmount > MainStore.selectedErcToken.balance / Math.pow(10, parseInt(MainStore.selectedErcToken.tokenInfo.decimals)))
+      ? <Text style={styles.waringStyle}>Insufficient ERC20 token balance.</Text>
+      : null
+
+    const switchToggle = MainStore.erc20 ? null : (
+      <TouchableOpacity
+                style={styles.changeButton}
+                onPress={this._onTogglePress}
+              >
+                <Image
+                  source={images.exchangeIcon}
+                  style={{ width: 30, height: 30 }}
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>);
     return (
       <View style={{ justifyContent: 'center' }}>
         <View style={styles.inputField}>
@@ -66,12 +81,14 @@ export default class AnimationInput extends Component {
                 key={`${index}`}
                 sizeSmall={this.amountStore.checkSmallSize}
                 ref={ref => (dataRef[index] = ref)}
-                text={text}
+                text={MainStore.erc20 ? item : text}
                 animated={animated}
               />
             )
           })}
           {subData.map((item, index) => {
+            if(MainStore.erc20)
+              return null;
             const { text = '', animated = true } = item
             return (
               <AnimationInputItem
@@ -91,20 +108,11 @@ export default class AnimationInput extends Component {
         >
           <View>
             <Text style={[styles.subTitle, { color: data.length == 0 ? AppStyle.greyTextInput : AppStyle.secondaryTextColor }]}>
-              {this.props.subData}
+              {MainStore.erc20 ? null : this.props.subData}
             </Text>
-            {warningTitle || warningFee}
+            {warningInsufficiet || warningTitle || warningFee}
           </View>
-          <TouchableOpacity
-            style={styles.changeButton}
-            onPress={this._onTogglePress}
-          >
-            <Image
-              source={images.exchangeIcon}
-              style={{ width: 30, height: 30 }}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
+          {switchToggle}
         </View>
       </View>
     )

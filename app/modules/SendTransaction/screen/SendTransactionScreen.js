@@ -91,6 +91,11 @@ export default class SendTransactionScreen extends Component {
   }
 
   renderHeader = () => {
+    if(MainStore.erc20 === true)
+      var  headerBalance = (MainStore.selectedErcToken.balance / Math.pow(10, parseInt(MainStore.selectedErcToken.tokenInfo.decimals)).toString() + ' ' + MainStore.selectedErcToken.tokenInfo.symbol);
+    else
+      var headerBalance = this.amountStore.amountHeaderString;
+
     return (
       <View
         style={styles.header}
@@ -102,12 +107,12 @@ export default class SendTransactionScreen extends Component {
           <Image style={styles.exitBtn} source={images.closeButton} resizeMode="contain" />
         </TouchableOpacity>
         <TouchableOpacity
-          disabled={MainStore.appState.selectedWallet.type === 'bitcoin'}
+          disabled={true} // MainStore.appState.selectedWallet.type === 'bitcoin'
           style={styles.headerTitle}
           onPress={this._onOpenModal}
         >
           <Text style={styles.walletName}>{this.amountStore.walletName}:</Text>
-          <Text style={styles.headerBalance}>{this.amountStore.amountHeaderString}</Text>
+          <Text style={styles.headerBalance}>{headerBalance}</Text>
         </TouchableOpacity>
       </View>
     )
@@ -127,13 +132,29 @@ export default class SendTransactionScreen extends Component {
   }
 
   renderSendBtn() {
+
+    if(!MainStore.erc20)
+    {
+      return (
+        <TouchableOpacity
+          style={styles.sendTo}
+          disabled={!this.amountStore.checkButtonEnable}
+          onPress={this._onSendPress}
+        >
+          <Text style={[styles.sendText, { color: this.amountStore.checkButtonEnable ? AppStyle.mainColor : AppStyle.greyTextInput }]}>
+            {constant.SEND_TO}
+          </Text>
+        </TouchableOpacity>
+      )
+    }
+
     return (
       <TouchableOpacity
         style={styles.sendTo}
-        disabled={!this.amountStore.checkButtonEnable}
+        disabled={this.amountStore.checkWarningTitle || MainStore.erc20TransferAmount > MainStore.selectedErcToken.balance / Math.pow(10, parseInt(MainStore.selectedErcToken.tokenInfo.decimals))}
         onPress={this._onSendPress}
       >
-        <Text style={[styles.sendText, { color: this.amountStore.checkButtonEnable ? AppStyle.mainColor : AppStyle.greyTextInput }]}>
+        <Text style={[styles.sendText, { color: !this.amountStore.checkWarningTitle && MainStore.erc20TransferAmount <= MainStore.selectedErcToken.balance / Math.pow(10, parseInt(MainStore.selectedErcToken.tokenInfo.decimals)) ? AppStyle.mainColor : AppStyle.greyTextInput }]}>
           {constant.SEND_TO}
         </Text>
       </TouchableOpacity>
@@ -141,13 +162,32 @@ export default class SendTransactionScreen extends Component {
   }
 
   render() {
+    if(!MainStore.erc20)
+    {
+      return (
+        <SafeAreaView
+          style={styles.container}
+        >
+          <View style={styles.viewContainer}>
+            {this.renderHeader()}
+            {this.renderInput(this.amountStore.getAmountText, this.amountStore.amountSubTextString, MainStore.sendTransaction.overfix ? MainStore.sendTransaction.overfix : this.amountStore.postfix)}
+            <View>
+              <KeyBoard />
+              {this.renderSendBtn()}
+            </View>
+          </View>
+          {this.renderSelectedCoinModal()}
+        </SafeAreaView>
+      )
+    }
+
     return (
       <SafeAreaView
         style={styles.container}
       >
         <View style={styles.viewContainer}>
           {this.renderHeader()}
-          {this.renderInput(this.amountStore.getAmountText, this.amountStore.amountSubTextString, this.amountStore.postfix)}
+          {this.renderInput({data: MainStore.erc20TransferAmount.toString().split(), subData: MainStore.erc20TransferAmount.toString().split(), isUSD: false}, this.amountStore.amountSubTextString, MainStore.sendTransaction.overfix ? MainStore.sendTransaction.overfix : this.amountStore.postfix)}
           <View>
             <KeyBoard />
             {this.renderSendBtn()}

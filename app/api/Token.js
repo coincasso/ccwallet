@@ -46,3 +46,7 @@ export const getCCXTokenInfo = (address) => {
 export const getCCXSaleInfo = () => {
   return caller.get(URL.CoinCasso.tokenInfoAPI(), {}, true)
 }
+
+export const getERC20List = (address) => {
+  return caller.get(`${URL.Ethplorer.apiURL()}/getAddressInfo/${address}?apiKey=freekey`, {}, true);
+}

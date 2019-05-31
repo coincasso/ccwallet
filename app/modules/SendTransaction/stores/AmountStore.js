@@ -129,7 +129,7 @@ class AmountStore {
   }
 
   @computed get checkWarningTitle() {
-    if (this.amountText.data.length == 0) return false
+    if (this.amountText.data.length == 0 && !MainStore.erc20) return false
     return !this.checkValueValid
   }
 

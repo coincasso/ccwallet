@@ -12,7 +12,10 @@ import AppStyle from '../../../commons/AppStyle'
 import Helper from '../../../commons/Helper'
 import FadeText from './FadeText'
 import MainStore from '../../../AppStores/MainStore'
+import NavStore from '../../../AppStores/NavStore'
 import ImageIcon from './ImageIcon'
+import FlexIcon from './FlexIcon'
+import Router from '../../../AppStores/Router'
 
 @observer
 export default class TokenItem extends Component {
@@ -38,6 +41,10 @@ export default class TokenItem extends Component {
     return MainStore.appState.selectedWallet
   }
 
+  createTokenTransaction(token) {
+    Router.SendTransaction.goToSendTx({erc20: token, erc20Source: this.wallet.address})
+  }
+
   render() {
     const {
       style,
@@ -52,7 +59,79 @@ export default class TokenItem extends Component {
 
     const { isHideValue } = this.wallet
 
-    if(this.wallet.type === 'ethereum') { return (
+    if(this.wallet.type === 'ethereum') {
+
+      var tokens = [];
+
+      if(typeof MainStore.walletTokenStore[this.wallet.address] !== 'undefined')
+      {
+        for(let i = 0; i < MainStore.walletTokenStore[this.wallet.address].length; i++){
+          let imgUrl = MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.image;
+          if(typeof imgUrl === 'undefined')
+            imgUrl = 'https://i1.sndcdn.com/artworks-000306764577-lvq5h3-t500x500.jpg';
+
+          let price = 'N/A';
+
+          if(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.address === '0x395dc9a82e3eef962b0355a3d4e6819e9af776d2') // ccx
+          {
+            price = '$' + MainStore.ccxPrice * MainStore.walletTokenStore[this.wallet.address][i].balance / Math.pow(10, parseInt(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.decimals));
+          }
+          else if(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.price)
+          {
+            price = '$' + MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.price.rate * MainStore.walletTokenStore[this.wallet.address][i].balance / Math.pow(10, parseInt(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.decimals));
+          }
+
+          let token = MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.address;
+
+          tokens.push(
+            <TouchableOpacity key={MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.symbol} onPress={() => { this.createTokenTransaction(token); }}>
+              <View style={[styles.container, style]}>
+                <View style={[styles.viewUp, styleUp]}>
+                  <FlexIcon renderUrl={imgUrl} />
+                  <View style={[styles.viewTitle]}>
+                    <Text
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                      style={styles.title}
+                    >
+                      {MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.symbol}
+                    </Text>
+                    <Text
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                      style={[styles.subTitle]}
+                    >
+                      {MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.name}
+                    </Text>
+                  </View>
+                  <View style={styles.viewEther}>
+                    <FadeText
+                      text={`${(MainStore.walletTokenStore[this.wallet.address][i].balance / Math.pow(10, parseInt(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.decimals))).toString()}`}
+                      isShow={isHideValue}
+                      textStyle={[
+                        styles.numberEther
+                      ]}
+                      style={{ right: 0, alignItems: 'flex-end' }}
+                    />
+                    <FadeText
+                      text={`${price}`}
+                      isShow={isHideValue}
+                      textStyle={[
+                        styles.dollaEther
+                      ]}
+                      style={{ right: 0, alignItems: 'flex-end' }}
+                    />
+                  </View>
+                </View>
+              </View>
+            </TouchableOpacity>
+          )
+        }
+      }
+
+
+      return (
+      <View>
       <TouchableOpacity onPress={onPress}>
         <View style={[styles.container, style]}>
           <View style={[styles.viewUp, styleUp]}>
@@ -93,46 +172,10 @@ export default class TokenItem extends Component {
             </View>
           </View>
         </View>
-        <View style={[styles.container, style]}>
-          <View style={[styles.viewUp, styleUp]}>
-            <ImageIcon indexToken={indexToken} />
-            <View style={[styles.viewTitle]}>
-              <Text
-                numberOfLines={1}
-                ellipsizeMode="tail"
-                style={styles.title}
-              >
-                CCX
-              </Text>
-              <Text
-                numberOfLines={1}
-                ellipsizeMode="tail"
-                style={[styles.subTitle]}
-              >
-                CoinCasso Token
-              </Text>
-            </View>
-            <View style={styles.viewEther}>
-              <FadeText
-                text={`${this.wallet.ccxCount}`}
-                isShow={isHideValue}
-                textStyle={[
-                  styles.numberEther
-                ]}
-                style={{ right: 0, alignItems: 'flex-end' }}
-              />
-              <FadeText
-                text={`$${Helper.formatUSD(this.wallet.ccxCount * MainStore.ccxPrice)}`}
-                isShow={isHideValue}
-                textStyle={[
-                  styles.dollaEther
-                ]}
-                style={{ right: 0, alignItems: 'flex-end' }}
-              />
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+        {tokens}
+      </View>
+
     ) } else { return (
       <View style={[styles.container, style]}>
               <View style={[styles.viewUp, styleUp]}>
