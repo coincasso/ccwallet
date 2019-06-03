@@ -74,12 +74,12 @@ export default class TokenItem extends Component {
 
           if(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.address === '0x395dc9a82e3eef962b0355a3d4e6819e9af776d2') // ccx
           {
-            price = '$' + MainStore.ccxPrice * MainStore.walletTokenStore[this.wallet.address][i].balance / Math.pow(10, parseInt(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.decimals));
+            price = '$' + (MainStore.ccxPrice * MainStore.walletTokenStore[this.wallet.address][i].balance / Math.pow(10, parseInt(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.decimals))).toFixed(2); 
             imgUrl = 'https://coincasso.io/Images/apple-touch-icon.png';
           }
           else if(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.price)
           {
-            price = '$' + MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.price.rate * MainStore.walletTokenStore[this.wallet.address][i].balance / Math.pow(10, parseInt(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.decimals));
+            price = '$' + (MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.price.rate * MainStore.walletTokenStore[this.wallet.address][i].balance / Math.pow(10, parseInt(MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.decimals))).toFixed(2);
           }
 
           let token = MainStore.walletTokenStore[this.wallet.address][i].tokenInfo.address;

@@ -1,6 +1,6 @@
 import { observable, action, computed } from 'mobx'
 import * as Keychain from 'react-native-keychain'
-import { Animated, AsyncStorage } from 'react-native'
+import { Animated, AsyncStorage, AlertIOS, NativeModules} from 'react-native'
 import MainStore from '../../AppStores/MainStore'
 import HapticHandler from '../../Handler/HapticHandler'
 import SecureDS from '../../AppStores/DataSource/SecureDS'
@@ -13,6 +13,18 @@ import NotificationStore from '../../AppStores/stores/Notification'
 import PushNotificationHelper from '../../commons/PushNotificationHelper'
 import MixpanelHandler from '../../Handler/MixpanelHandler'
 
+const optionalConfigObject = {
+  title: 'Authentication Required', // Android
+  imageColor: '#e00606', // Android
+  imageErrorColor: '#ff0000', // Android
+  sensorDescription: 'Touch sensor', // Android
+  sensorErrorDescription: 'Failed', // Android
+  cancelText: 'Cancel', // Android
+  fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
+  unifiedErrors: false, // use unified error messages (default false)
+  passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
+};
+import TouchID from 'react-native-touch-id'
 const minute = 60000
 class UnlockStore {
   @observable data = {
@@ -89,6 +101,10 @@ class UnlockStore {
         this.countdown()
       }
     })
+    if (MainStore.appState.hasPassword) {
+           this._handleCheckTouchID()
+    } 
+    
   }
 
   @action resetDisable() {
@@ -196,6 +212,16 @@ class UnlockStore {
     })
   }
 
+ _handleCheckTouchID(){
+      TouchID.authenticate('Unlock CCWallet', optionalConfigObject)
+      .then(success => {        
+         this._handleCheckId()
+      })
+      .catch(error => {
+        AlertIOS.alert('Authentication Failed');
+      });
+ }
+
   async _handleCheckPincode() {
     return new Promise(async (resolve) => {
       const { pincode } = this.data
@@ -228,6 +254,15 @@ class UnlockStore {
     })
   }
 
+  _handleCheckId() {
+    return new Promise(async (resolve) => {
+        HapticHandler.NotificationSuccess()
+        NavStore.goBack()
+        this.resetDisable()
+    }
+    )
+  }
+                       
   async _handleConfirmPin() {
     return new Promise(async (resolve) => {
       const { pincode } = this.data
