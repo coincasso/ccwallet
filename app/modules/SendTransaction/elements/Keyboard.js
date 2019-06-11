@@ -53,14 +53,27 @@ export default class KeyBoard extends Component {
     if(!MainStore.erc20)
       this.amountStore.max()
     else
-      MainStore.erc20TransferAmount = (MainStore.selectedErcToken.balance / Math.pow(10, parseInt(MainStore.selectedErcToken.tokenInfo.decimals)));
+    {
+      MainStore.erc20TransferAmountString = (MainStore.selectedErcToken.balance / Math.pow(10, parseInt(MainStore.selectedErcToken.tokenInfo.decimals))).toString();
+      MainStore.erc20TransferAmount = parseFloat(MainStore.erc20TransferAmountString);
+    }
+
   }
   _onKeyPress = debounce((text) => {
     HapticHandler.ImpactLight()
     if(!MainStore.erc20)
       this.amountStore.add({ text })
     else
-      MainStore.erc20TransferAmount = parseInt(MainStore.erc20TransferAmount.toString() + text);
+    {
+      if(MainStore.erc20TransferAmountString != '0')
+        MainStore.erc20TransferAmountString += text;
+      else
+        MainStore.erc20TransferAmount = text;
+        
+      if(!isNaN(MainStore.erc20TransferAmountString))
+        MainStore.erc20TransferAmount = parseFloat(MainStore.erc20TransferAmountString);
+    }
+
   }, 0)
 
   _onBackPress = debounce(() => {
@@ -68,10 +81,13 @@ export default class KeyBoard extends Component {
       this.amountStore.remove()
     else
     {
-      if(MainStore.erc20TransferAmount.toString().length === 1)
-        MainStore.erc20TransferAmount = 0;
+      if(MainStore.erc20TransferAmountString.length === 1)
+        MainStore.erc20TransferAmountString = '0';
       else
-        MainStore.erc20TransferAmount = parseInt(MainStore.erc20TransferAmount.toString().slice(0, -1));
+        MainStore.erc20TransferAmountString = MainStore.erc20TransferAmountString.slice(0, -1);
+
+        if(!isNaN(MainStore.erc20TransferAmountString))
+          MainStore.erc20TransferAmount = parseFloat(MainStore.erc20TransferAmountString);
     }
 
   }, 0)
@@ -80,8 +96,10 @@ export default class KeyBoard extends Component {
     if(!MainStore.erc20)
       this.amountStore.clearAll()
     else
+    {
+      MainStore.erc20TransferAmountString = '0';
       MainStore.erc20TransferAmount = 0;
-
+    }
   }, 0)
 
   renderNumber(arrayNumber) {

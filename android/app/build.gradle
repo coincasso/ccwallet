@@ -172,6 +172,7 @@ configurations.all {
 }
 
 dependencies {
+    compile project(':react-native-touch-id')
     implementation project(':react-native-mixpanel')
     implementation project(':react-native-branch')
     implementation project(':react-native-share')
