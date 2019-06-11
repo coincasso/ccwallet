@@ -101,10 +101,7 @@ class UnlockStore {
         this.countdown()
       }
     })
-    if (MainStore.appState.hasPassword) {
-           this._handleCheckTouchID()
-    } 
-    
+
   }
 
   @action resetDisable() {

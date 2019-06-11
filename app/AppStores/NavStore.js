@@ -57,7 +57,7 @@ class ObservableNavStore {
     this.popupCustom.hide()
     this.pushToScreen('UnlockScreen', { ...params, shouldShowCancel })
   }
-
+ 
   @action reset() {
     const resetAction = {
       type: NavigationActions.NAVIGATE,

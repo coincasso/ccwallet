@@ -8,6 +8,7 @@ import {
   Dimensions
 } from 'react-native'
 import PropTypes from 'prop-types'
+import NavStore from '../../../../AppStores/NavStore'
 
 import AppStyle from '../../../../commons/AppStyle'
 import images from '../../../../commons/images'
@@ -18,7 +19,13 @@ const marginTop = LayoutUtils.getExtraTop()
 const cardWidth = width - 72 - 10
 const cardHeight = height - 200 - marginTop - 5
 
+ 
 export default class AddCard extends Component {
+    
+ gotoNewWallet = () => {
+    NavStore.pushToScreen('CreateWalletStack')
+  }    
+
   static propTypes = {
     onPress: PropTypes.func
   }
@@ -26,8 +33,6 @@ export default class AddCard extends Component {
   static defaultProps = {
     onPress: () => { }
   }
-  
-
   
 
   render() {
