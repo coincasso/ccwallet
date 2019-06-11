@@ -187,7 +187,7 @@ export default class SendTransactionScreen extends Component {
       >
         <View style={styles.viewContainer}>
           {this.renderHeader()}
-          {this.renderInput({data: MainStore.erc20TransferAmount.toString().split(), subData: MainStore.erc20TransferAmount.toString().split(), isUSD: false}, this.amountStore.amountSubTextString, MainStore.sendTransaction.overfix ? MainStore.sendTransaction.overfix : this.amountStore.postfix)}
+          {this.renderInput({data: MainStore.erc20TransferAmountString.split(), subData: MainStore.erc20TransferAmount.toString().split(), isUSD: false}, this.amountStore.amountSubTextString, MainStore.sendTransaction.overfix ? MainStore.sendTransaction.overfix : this.amountStore.postfix)}
           <View>
             <KeyBoard />
             {this.renderSendBtn()}

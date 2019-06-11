@@ -65,9 +65,13 @@ export default class KeyBoard extends Component {
       this.amountStore.add({ text })
     else
     {
-      MainStore.erc20TransferAmoutString += text;
+      if(MainStore.erc20TransferAmountString != '0')
+        MainStore.erc20TransferAmountString += text;
+      else
+        MainStore.erc20TransferAmount = text;
+        
       if(!isNaN(MainStore.erc20TransferAmountString))
-        MainStore.erc20TransferAmount = parseFloat(MainStore.erc20TransferAmoutString);
+        MainStore.erc20TransferAmount = parseFloat(MainStore.erc20TransferAmountString);
     }
 
   }, 0)
@@ -80,10 +84,10 @@ export default class KeyBoard extends Component {
       if(MainStore.erc20TransferAmountString.length === 1)
         MainStore.erc20TransferAmountString = '0';
       else
-        MainStore.erc20TransferAmount = MainStore.erc20TransferAmountString.slice(0, -1);
+        MainStore.erc20TransferAmountString = MainStore.erc20TransferAmountString.slice(0, -1);
 
         if(!isNaN(MainStore.erc20TransferAmountString))
-          MainStore.erc20TransferAmount = parseFloat(MainStore.erc20TransferAmoutString);
+          MainStore.erc20TransferAmount = parseFloat(MainStore.erc20TransferAmountString);
     }
 
   }, 0)
