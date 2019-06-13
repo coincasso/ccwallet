@@ -12,6 +12,7 @@ import PropTypes from 'prop-types'
 import AppStyle from '../../../../commons/AppStyle'
 import images from '../../../../commons/images'
 import LayoutUtils from '../../../../commons/LayoutUtils'
+import NavStore from '../../../../AppStores/NavStore'
 
 const { width, height } = Dimensions.get('window')
 const marginTop = LayoutUtils.getExtraTop()
@@ -26,16 +27,18 @@ export default class AddCard extends Component {
   static defaultProps = {
     onPress: () => { }
   }
-  
 
-  
+
+  goToCreateWallet = () => {
+    NavStore.pushToScreen('CreateWalletScreen')
+  }
 
   render() {
     const { onPress } = this.props
     return (
       <TouchableWithoutFeedback
         style={onPress}
-        onPress={this.gotoNewWallet}
+        onPress={this.goToCreateWallet}
       >
         <View style={[styles.container, { marginTop: 20, margin: 5 }]}>
           <Image

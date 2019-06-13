@@ -114,13 +114,16 @@ class UnlockStore {
     })
   }
 
-  @action async handlePress(number) {
-    const { pincode, pinConfirm } = this.data
+  @action async handlePress(number, fullPd) {
+    let { pincode, pinConfirm } = this.data
+
     if (pincode.length === 6) {
       return null
     }
     HapticHandler.ImpactLight()
-    const pinData = pincode + number
+    let pinData = fullPd ? fullPd : pincode + number;
+
+
     return new Promise((resolve, reject) => {
       if (pinData.length === 6) {
         // handle check pincode
@@ -211,18 +214,11 @@ class UnlockStore {
     })
   }
 
-  @action async handleUnlockBiometrics() {
-    return new Promise(async (resolve) => {
-      let pincode = await AsyncStorage.getItem('BIOMETRIC_PINCODE');
-      const secureDS = await SecureDS.getInstance(pincode)
-      if (!secureDS) {
-        this._handleErrorPin()
-      } else {
-        HapticHandler.NotificationSuccess()
-        NavStore.goBack()
-        this.resetDisable()
-        resolve(pincode)
-      }
+  @action async handleUnlockBiometrics(param) {
+    const { onUnlock = () => { }, shouldShowCancel } = param
+    this.handlePress('0', await AsyncStorage.getItem('BIOMETRIC_PINCODE')).then((res) => {
+      if (!res) return
+      onUnlock(res)
     })
   }
 

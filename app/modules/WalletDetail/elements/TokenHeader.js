@@ -31,8 +31,7 @@ export default class TokenHeader extends Component {
           data={{
             cardItem: this.wallet,
             titleText: 'Estimated Value',
-            mainSubTitleText: `${Helper.formatETH(totalBalanceETH.toString(10))} ${this.symbol}`,
-            viceSubTitleText: `$${Helper.formatUSD(totalBalanceDollar.toString(10))}`
+            mainSubTitleText: `${Helper.formatETH(totalBalanceETH.toString(10))} ${this.symbol}`
           }}
           style={{
             marginTop: 15,

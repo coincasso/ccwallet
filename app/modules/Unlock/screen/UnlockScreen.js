@@ -124,7 +124,7 @@ export default class UnlockScreen extends Component {
     const { warningPincodeFail } = UnlockStore
     const unlockDescription = UnlockStore.data.unlockDes
     const container = shouldShowDisableView ? {} : { justifyContent: 'center' }
-    const biometrics = unlockDescription === 'Create your Pincode' ? null : <Text style={styles.desText}>USE BIOMETRICS</Text>;
+    const biometrics = unlockDescription !== 'Unlock your wallet' ? null : <Text style={styles.desText}>USE BIOMETRICS</Text>;
     return (
       <View style={[styles.container, container]}>
         <StatusBar
@@ -139,7 +139,7 @@ export default class UnlockScreen extends Component {
           onPress={() => {
               TouchID.authenticate('Authenticate app')
               .then(success => {
-                UnlockStore.handleUnlockBiometrics()
+                UnlockStore.handleUnlockBiometrics(this.props.navigation.state.params)
               })
               .catch(error => {
                 AlertIOS.alert('Authentication with biometrics failed.');
