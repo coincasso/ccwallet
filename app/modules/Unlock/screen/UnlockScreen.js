@@ -7,16 +7,20 @@ import {
   Text,
   Animated,
   BackHandler,
-  Platform
+  Platform,
+  AlertIOS,
+  TouchableOpacity
 } from 'react-native'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react/native'
 /* eslint-disable-next-line */
 import GoldenLoading from '../../../components/elements/GoldenLoading'
-import UnlockStore from '../UnlockStore'
 import DisableView from '../elements/DisableView'
 import AppStyle from '../../../commons/AppStyle'
 import Keyboard from '../elements/Keyboard'
+import UnlockStore from '../UnlockStore'
+
+import TouchID from 'react-native-touch-id'
 
 const { height } = Dimensions.get('window')
 const isSmallScreen = height < 569
@@ -120,6 +124,7 @@ export default class UnlockScreen extends Component {
     const { warningPincodeFail } = UnlockStore
     const unlockDescription = UnlockStore.data.unlockDes
     const container = shouldShowDisableView ? {} : { justifyContent: 'center' }
+    const biometrics = unlockDescription === 'Create your Pincode' ? null : <Text style={styles.desText}>USE BIOMETRICS</Text>;
     return (
       <View style={[styles.container, container]}>
         <StatusBar
@@ -130,6 +135,20 @@ export default class UnlockScreen extends Component {
           isSpin={false}
         />
         {this.renderContent(unlockDescription, warningPincodeFail)}
+        <TouchableOpacity
+          onPress={() => {
+              TouchID.authenticate('Authenticate app')
+              .then(success => {
+                UnlockStore.handleUnlockBiometrics()
+              })
+              .catch(error => {
+                AlertIOS.alert('Authentication with biometrics failed.');
+              });
+          }}
+        >
+        {biometrics}
+        </TouchableOpacity>
+
       </View>
     )
   }

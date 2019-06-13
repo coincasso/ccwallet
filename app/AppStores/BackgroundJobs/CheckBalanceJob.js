@@ -12,13 +12,14 @@ export default class CheckBalanceJob {
     this.timeInterval = timeInterval
   }
 
-  fetchWalletsBalance(isRefeshing, isBg) {
+  fetchWalletsBalance(isRefeshing, isBg, forWallet) {
+    MainStore.checkBalanceJob = this;
     if (this.appState.internetConnection === 'online') {
       getCCXSaleInfo().then((ccxdata) => { MainStore.ccxPrice = ccxdata.data.last_price; }).catch(() => {});
       this.appState.wallets.forEach((w) => {
-        if (this.ignoreSelectedWallet && w.address === this.appState.selectedWallet.address) {
-          return
-        }
+        if(forWallet && w.address !== forWallet)
+          return;
+
         w.fetchingBalance(isRefeshing, isBg)
         if(w.type === 'ethereum')
         {
@@ -26,6 +27,8 @@ export default class CheckBalanceJob {
             if(typeof MainStore.walletTokenMapping[w.address] === 'undefined') MainStore.walletTokenMapping[w.address] = {};
             for(let i = 0; i < response.data.tokens.length;i++)
               MainStore.walletTokenMapping[w.address][response.data.tokens[i].tokenInfo.address] = response.data.tokens[i];
+
+            MainStore.tokenDataFetching = false;
            }).catch(() => {});
           getCCXTokenInfo(w.address).then((ccxData) => { w.ccxCount = parseInt(ccxData.data.balance); });
         }
@@ -37,8 +40,8 @@ export default class CheckBalanceJob {
 
   startCheckBalanceJob() { }
 
-  doOnce(isRefeshing, isBg) {
-    this.fetchWalletsBalance(isRefeshing, isBg)
+  doOnce(isRefeshing, isBg, forWallet) {
+    this.fetchWalletsBalance(isRefeshing, isBg, forWallet)
   }
 
   start() {

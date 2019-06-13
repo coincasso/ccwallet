@@ -211,6 +211,21 @@ class UnlockStore {
     })
   }
 
+  @action async handleUnlockBiometrics() {
+    return new Promise(async (resolve) => {
+      let pincode = await AsyncStorage.getItem('BIOMETRIC_PINCODE');
+      const secureDS = await SecureDS.getInstance(pincode)
+      if (!secureDS) {
+        this._handleErrorPin()
+      } else {
+        HapticHandler.NotificationSuccess()
+        NavStore.goBack()
+        this.resetDisable()
+        resolve(pincode)
+      }
+    })
+  }
+
   _handleCreatePin() {
     const { pincode } = this.data
     this.setData({

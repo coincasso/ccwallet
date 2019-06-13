@@ -26,6 +26,9 @@ class MainStore {
   @observable walletTokenMapping = {}
   @observable erc20TransferAmount = 5
   @observable erc20TransferAmountString = '5'
+  @observable tokenDataFetching = true
+
+  checkBalanceJob = null;
 
   // Start
   @action async startApp() {
