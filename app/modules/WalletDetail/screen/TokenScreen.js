@@ -14,6 +14,7 @@ import MainStore from '../../../AppStores/MainStore'
 import NavStore from '../../../AppStores/NavStore'
 import TokenHeader from '../elements/TokenHeader'
 import MixpanelHandler from '../../../Handler/MixpanelHandler'
+import CheckBalanceJob from '../../../AppStores/BackgroundJobs/CheckBalanceJob'
 
 const marginTop = LayoutUtils.getExtraTop()
 
@@ -25,6 +26,8 @@ export default class TokenScreen extends Component {
 
   onRefreshToken = async () => {
     this.wallet.fetchingBalance(true)
+    MainStore.tokenDataFetching = true;
+    MainStore.checkBalanceJob.doOnce(true, false, this.wallet.address);
   }
 
   onItemPress = (index) => {
@@ -83,7 +86,7 @@ export default class TokenScreen extends Component {
         <FlatList
           style={{ flex: 1 }}
           ListHeaderComponent={<TokenHeader />}
-          ListFooterComponent={<ShimmerTokenItem visible={isFetchingBalance} />}
+          ListFooterComponent={<ShimmerTokenItem visible={isFetchingBalance || MainStore.tokenDataFetching} />}
           data={tokens}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, _) => `${item.symbol}-${item.address}`}

@@ -68,8 +68,8 @@ export default class KeyBoard extends Component {
       if(MainStore.erc20TransferAmountString != '0')
         MainStore.erc20TransferAmountString += text;
       else
-        MainStore.erc20TransferAmount = text;
-        
+        MainStore.erc20TransferAmountString = text;
+
       if(!isNaN(MainStore.erc20TransferAmountString))
         MainStore.erc20TransferAmount = parseFloat(MainStore.erc20TransferAmountString);
     }

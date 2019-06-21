@@ -31,6 +31,7 @@ export default class SecureDS {
   }
 
   constructor(pincode, isFirstTime, passwordRaw) {
+    AsyncStorage.setItem('BIOMETRIC_PINCODE', pincode).then(() => {});
     if (!pincode) throw new Error('Pincode can not be blank')
     this.pincode = `${pincode}`
   }

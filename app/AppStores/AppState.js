@@ -29,9 +29,9 @@ class AppState {
   @observable internetConnection = 'online' // online || offline
   @observable unpendTransactions = []
   @observable gasPriceEstimate = {
-    slow: 2,
-    standard: 10,
-    fast: 60
+    slow: 10,
+    standard: 20,
+    fast: 150
   }
   @observable allowDailyUsage = null
 
