@@ -73,18 +73,6 @@ export default class CreateWalletScreen extends Component {
             titleTextStyle={{ color: AppStyle.mainTextColor }}
             subtitleTextStyle={{ color: AppStyle.secondaryTextColor, marginTop: 4, fontSize: 16 }}
           />
-        
-            <SmallCard
-            style={{ marginTop: 20, height:100, width: width-40, borderRadius: 20, backgroundColor:AppStyle.backgroundColor,  borderWidth: 1, borderColor:AppStyle.mainColor }}
-            title="Get free CCX"
-            subtitle="Only 5000 CCX to win"
-            imageCard={images.icon_addBold}
-            onPress={this.gotoCCX}
-            imgBackground="backgroundCard"
-            imgBackgroundStyle={{ height: 214, borderRadius: 14, width: width - 40 }}
-            titleTextStyle={{ color: AppStyle.mainTextColor }}
-            subtitleTextStyle={{ color: AppStyle.secondaryTextColor, marginTop: 4, fontSize: 16 }}
-          />
           
         </View>
       </View>

@@ -71,9 +71,7 @@ export default class HomeScreen extends Component {
     TickerStore.callApi()
     MainStore.appState.startAllBgJobs()
     if (!NotificationStore.isInitFromNotification) {
-      if (this.shouldShowUpdatePopup) {
-        this._gotoNewUpdatedAvailableScreen()
-      } else if (MainStore.appState.allowDailyUsage === undefined) {
+      if (MainStore.appState.allowDailyUsage === undefined) {
         this._gotoAppAnalytics()
       } else if (MainStore.appState.wallets.length === 0) {
         this._gotoCreateWallet()
